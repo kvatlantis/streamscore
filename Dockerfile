@@ -6,9 +6,9 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["StreamScore/StreamScore.csproj", "StreamScore/"]
+COPY ["src/StreamScore/StreamScore.csproj", "StreamScore/"]
 RUN dotnet restore "StreamScore/StreamScore.csproj"
-COPY . .
+COPY src/. .
 WORKDIR "/src/StreamScore"
 RUN dotnet build "StreamScore.csproj" -c Release -o /app/build
 
