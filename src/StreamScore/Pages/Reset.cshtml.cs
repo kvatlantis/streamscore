@@ -22,6 +22,7 @@ namespace StreamScore.Pages
     {
       Globals.Thuis = 0;
       Globals.Uit = 0;
+      Globals.Time = 25 * 60;
 
       await _scoreHub.Clients.All.SendAsync("ReceiveScore", $"{Globals.Thuis} - {Globals.Uit}");
 
