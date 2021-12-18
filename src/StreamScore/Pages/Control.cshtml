@@ -1,0 +1,210 @@
+﻿@page
+@model StreamScore.Pages.ControlModel
+@{
+}
+
+<style>
+
+  /*https://grid.layoutit.com/*/
+
+  @@font-face {
+    font-family: myFirstFont;
+    src: url(/font/Segoe-UI-Bold.ttf);
+  }
+
+  body {
+    background-color: #00b140; /*chroma key green*/
+    /*background-color: rgba(0, 0, 0, 0);*/
+    margin: 0px auto;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    font-family: myFirstFont;
+    display: grid;
+    grid-template-columns: 40px 128px 1fr 128px 40px;
+    grid-template-rows: 40px 80px 1fr 80px 40px;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . . . ."
+      ". header header header ."
+      ". main    main  main ."
+      ". footer footer footer ."
+      ". . . . .";
+  }
+
+  .header {
+    grid-area: header;
+    /*background: red;*/
+    display: grid;
+    grid-template-columns: minmax(102px, max-content) minmax(102px, max-content) minmax(102px, max-content) minmax(128px, max-content) auto;
+    grid-template-rows: 56px 24px;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "thuis score uit tijd schot"
+      "w1   wissel w2 helft .";
+    font-weight: bold;
+  }
+
+  #team1 {
+    grid-area: thuis;
+    background-color: grey;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 56px;
+    font-size: 30px;
+    padding: 0 16px;
+  }
+
+  #score {
+    grid-area: score;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 56px;
+    font-size: 30px;
+    padding: 0 16px;
+  }
+
+  #team2 {
+    grid-area: uit;
+    background-color: grey;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 56px;
+    font-size: 30px;
+    padding: 0 16px;
+    color: white;
+  }
+
+  #tijd {
+    grid-area: tijd;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 56px;
+    font-size: 30px;
+    padding: 0 16px;
+  }
+
+  #w1 {
+    grid-area: w1;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+    padding: 0 8px;
+  }
+
+  #helft {
+    grid-area: helft;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+  }
+
+  #wissel {
+    grid-area: wissel;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+  }
+
+  #w2 {
+    grid-area: w2;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+    padding: 0 8px;
+  }
+
+
+  .footer {
+    grid-area: footer;
+    background: black;
+  }
+</style>
+
+<div class="header">
+
+  <div id="team1">Atl</div>
+  <div id="score">12-20</div>
+  <div id="team2">Tmp</div>
+  <div id="tijd">10:34</div>
+
+  <div id="w1">Atlantis B1</div>
+  <div id="wissel"></div>
+  <div id="w2">Tempo B1</div>
+
+  <div id="helft">1e helft</div>
+
+</div>
+
+
+<style>
+
+  #container {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". ."
+      ". ."
+      ". ."
+      ". ."
+      ". ."
+      ". .";
+
+    font-size: 30px;
+  }
+
+</style>
+
+<div id="container">
+
+  <button id="team1Plus">+</button>
+  <button id="team2Plus">+</button>
+  <button id="team1Min">-</button>
+  <button id="team2Min">-</button>
+  <button id="stateRun">start</button>
+  <button id="stateStop">stop</button>
+  <button id="reset">reset</button>
+
+  <div>
+    <input id="t1" value="ATL" />
+    <input id="t1n" value="Atlantis B1" /><br />
+    <input id="t2" value="ATL" />
+    <input id="t2n" value="Atlantis B2" /><br />
+    <input id="s" value="" />
+    <input id="h" value="1e helft" /><br />
+    <button id="setData">update data</button>
+  </div>
+
+  <div>
+    <input id="klokmin" value="30" />
+    <button id="klok">set klok</button>
+  </div>
+</div>
+
+
+<div class="footer">
+
+</div>
+
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/stream.js"></script>

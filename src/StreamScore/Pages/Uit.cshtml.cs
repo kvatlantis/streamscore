@@ -4,17 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+using StreamScore.Hubs;
 
 namespace StreamScore.Pages
 {
   public class UitModel : PageModel
   {
-    public IActionResult OnGet()
+    private readonly IHubContext<ScoreHub> _scoreHub;
+
+    public UitModel(IHubContext<ScoreHub> scoreHub)
+    {
+      _scoreHub = scoreHub;
+    }
+    public async Task<IActionResult> OnGet()
     {
       Globals.Uit++;
 
-      return Redirect("/");
+      await _scoreHub.Clients.All.SendAsync("ReceiveScore", $"{Globals.Thuis} - {Globals.Uit}");
 
+      return Redirect("/");
     }
   }
+
 }
