@@ -6,6 +6,20 @@ namespace StreamScore.Hubs
 {
   public class ScoreHub : Hub
   {
+    public override async Task OnConnectedAsync()
+    {
+      await base.OnConnectedAsync();
+
+      var info = Globals.BuildInfo();
+      await Clients.Caller.SendAsync("ScreenUpdate", info);
+    }
+
+    private async Task Update()
+    {
+      var info = Globals.BuildInfo();
+      await Clients.All.SendAsync("ScreenUpdate", info);
+    }
+
     public async Task SendMessage(string user, string message)
     {
       await Clients.All.SendAsync("ReceiveMessage", user, message);
@@ -26,6 +40,8 @@ namespace StreamScore.Hubs
     public async Task Team1Min()
     {
       Globals.Thuis--;
+      if (Globals.Thuis < 0)
+        Globals.Thuis = 0;
       await Update();
     }
 
@@ -38,6 +54,8 @@ namespace StreamScore.Hubs
     public async Task Team2Min()
     {
       Globals.Uit--;
+      if (Globals.Uit < 0)
+        Globals.Uit = 0;
       await Update();
     }
 
@@ -79,10 +97,6 @@ namespace StreamScore.Hubs
       await Update();
     }
 
-    private async Task Update()
-    {
-      var info = Globals.BuildInfo();
-      await Clients.All.SendAsync("ScreenUpdate", info);
-    }
+
   }
 }

@@ -14,12 +14,27 @@ function tryUpdate(id, value) {
   element.textContent = value;
 }
 
+function tryUpdate2(id, value) {
+  var element = document.getElementById(id);
+  if (!element)
+    return;
+
+  element.value = value;
+}
+
 connection.on("ReceiveScore", function (score) {
   document.getElementById("score").textContent = `${score}`;
 });
 
+var isFirst = true;
 
 connection.on("ScreenUpdate", function (info) {
+
+  var element = document.getElementById("header");
+  if (!element)
+    return;
+
+  element.style.visibility = "visible";
 
   tryUpdate("team1", info.team1);
   tryUpdate("score", `${info.score1}-${info.score2}`);
@@ -27,8 +42,19 @@ connection.on("ScreenUpdate", function (info) {
   tryUpdate("tijd", info.time);
   tryUpdate("w1", info.team1Name);
   tryUpdate("wissel", info.status);
-  tryUpdate("w2", info.team1Name);
+  tryUpdate("w2", info.team2Name);
   tryUpdate("helft", info.helft);
+
+  if (!isFirst)
+    return;
+  isFirst = false;
+
+  tryUpdate2("t1", info.team1);
+  tryUpdate2("t2", info.team2);
+  tryUpdate2("t1n", info.team1Name);
+  tryUpdate2("t2n", info.team2Name);
+  tryUpdate2("s", info.status);
+  tryUpdate2("h", info.helft);
 
 });
 

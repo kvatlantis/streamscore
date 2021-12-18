@@ -11,12 +11,12 @@ namespace StreamScore
     public static int Thuis { get; set; }
     public static int Uit { get; set; }
 
-    public static string Team1 { get; set; }
-    public static string Team2 { get; set; }
-    public static string Team1Name { get; set; }
-    public static string Team2Name { get; set; }
+    public static string Team1 { get; set; } = "ATL";
+    public static string Team2 { get; set; } = "ATL";
+    public static string Team1Name { get; set; } = "Atlantis 1";
+    public static string Team2Name { get; set; } = "Atlantis 1";
     public static string Status { get; set; }
-    public static string Helft { get; set; }
+    public static string Helft { get; set; } = "1e helft";
 
 
     public static GameState State { get; set; } = GameState.Pause;
