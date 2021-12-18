@@ -21,7 +21,7 @@ namespace StreamScore.Pages
     {
       Globals.Thuis++;
       
-      await _scoreHub.Clients.All.SendAsync("ReceiveScore", $"{Globals.Thuis} - {Globals.Uit}");
+      //await _scoreHub.Clients.All.SendAsync("ReceiveScore", $"{Globals.Thuis} - {Globals.Uit}");
       
       return Redirect("/");
     }
