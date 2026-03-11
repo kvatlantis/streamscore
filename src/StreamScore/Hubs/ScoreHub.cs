@@ -92,8 +92,11 @@ namespace StreamScore.Hubs
 
     public async Task Klok(string value)
     {
-      var min = Convert.ToInt32(value);
-      Globals.Time = min * 60;
+      var raw = Convert.ToInt32(value);
+
+      var min = raw / 100;
+      var sec = raw % 100;
+      Globals.Time = min * 60 + sec;
       await Update();
     }
 

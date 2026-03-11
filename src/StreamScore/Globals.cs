@@ -20,7 +20,7 @@ namespace StreamScore
 
 
     public static GameState State { get; set; } = GameState.Pause;
-    public static int Time { get; set; } = 25 * 60;
+    public static int Time { get; set; } = 30 * 60;
 
 
     public static GameInfo BuildInfo()
